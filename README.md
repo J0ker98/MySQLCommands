@@ -4,7 +4,7 @@ Web Interface for MySQLCommands Bukkit Plugin
 Installation Tutorial
 
 1. Open “execute.php”
-2. Add your db informations.
+2. Add your MySQL Database informations.
 3. Upload files on your Web Server.
 
 
