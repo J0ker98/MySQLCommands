@@ -18,6 +18,12 @@
 **/
 require 'config.php';
 
+function MySQLCommandsError($errno, $errstr) {
+  echo "<div class="alert alert-danger" role="alert"><strong>Error!</strong> [$errno] $errstr</div>";
+}
+
+set_error_handler("MySQLCommandsError");
+
   if(!empty($_POST['command'])) 
   {
 $db_connection = new mysqli($dbhost, $dbname, $dbpass, $dbname);
