@@ -19,7 +19,8 @@
 require 'config.php';
 
 function MySQLCommandsError($errno, $errstr) {
-  echo "<div class="alert alert-danger" role="alert"><strong>Error!</strong> [$errno] $errstr</div>";
+  $errormsg = '<div class="alert alert-danger" role="alert"><strong>Error!</strong> [$errno] $errstr</div>';
+  echo htmlspecialchars($errormsg);
 }
 
 set_error_handler("MySQLCommandsError");
@@ -42,14 +43,14 @@ $remove_quotation = str_replace('"', "", $command);
 $finished_result = str_replace("'", "", $remove_quotation);
                           
                           
-$sqlqry = `'INSERT INTO `MySQLCommands` (`command`) VALUES('$finished_result')' 
+$sqlqry = 'INSERT INTO `MySQLCommands` (`command`) VALUES('.$finished_result.')';
       
 if(!$result = $db->query($sqlqry)){
     die('There was an error running the insert in the database [' . $db->error . ']');
 }
     echo "Command '$finished_result' successfully sheduled.";
     } else {
-        echo "Command '$finished_result' not defined.";
+        trigger_error("Command not defined.", E_USER_ERROR);
     } 
 ?>
 <html>
