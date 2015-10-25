@@ -1,5 +1,5 @@
 # MySQLCommands
-The Web Interface for the MySQLCommands Bukkit Plugin
+The Web Interface for the MySQLCommands Bukkit plugin. You can try out a live version at http://goo.gl/mggGN3
 
 ##Installation Tutorial
 1. Open the file "config.php"
