@@ -1,5 +1,5 @@
 <?php
-/**
+/*
     MySQLCommans Web Prompt
     Copyright (C) 2015 Stefano Zeppieri - http://stefanozeppieri.altervista.org
 
@@ -14,44 +14,8 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-**/
-require 'config.php';
-
-function MySQLCommandsError($errno, $errstr) {
-  $errormsg = '<div class="alert alert-danger" role="alert"><strong>Error!</strong> [$errno] $errstr</div>';
-  echo htmlspecialchars($errormsg);
-}
-
-set_error_handler("MySQLCommandsError");
-
-  if(!empty($_POST['command'])) 
-  {
-$db_connection = new mysqli($dbhost, $dbname, $dbpass, $dbname);
-      
-  if($db_connection->connect_errno > 0){
-die('Unable to connect to database [' . $db->connect_error . ']');
-}
-      
-$command = $_POST['command']; 
-$command_count = strlen($command);
-  if($command_count > "255") {
-die("Your Message contains too many characters. Maximum is 255 and you used $command_count of them.");
-} 
-// No fancy solution but does what it has to do
-$remove_quotation = str_replace('"', "", $command);
-$finished_result = str_replace("'", "", $remove_quotation);
-                          
-                          
-$sqlqry = 'INSERT INTO `MySQLCommands` (`command`) VALUES('.$finished_result.')';
-      
-if(!$result = $db->query($sqlqry)){
-    die('There was an error running the insert in the database [' . $db->error . ']');
-}
-    echo "Command '$finished_result' successfully sheduled.";
-    } else {
-        trigger_error("Command not defined.", E_USER_ERROR);
-    } 
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 ?>
 <html>
 <head>
@@ -62,26 +26,78 @@ if(!$result = $db->query($sqlqry)){
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
-<form method='post' action='<?php echo __FILE__; ?>' class="form-horizontal">
+<form method='post' action='./execute.php' class="form-horizontal">
 <fieldset>
 <legend>MySQL Commands Console</legend>
+<?php if(!isset($_GET['schedule'])) { ?>
 <div class="form-group">
-  <label class="col-md-4 control-label" for="command"></label>  
+  <label class="col-md-3 control-label" for="command"></label>
   <div class="col-md-6">
-  <p>Execute Command, ' and " will be removed.</p><br />
+    <?php if(isset($_GET['success']) or isset($_GET['error'])) { ?>
+    <div class="alert alert-<?php if(isset($_GET['success'])){echo"success";}else{echo "danger";}?>" role="alert"><strong>
+    <?php if(isset($_GET['success'])){echo"Success";}else{echo"Error";}?>!</strong> <?php if(isset($_GET['success'])){echo$_GET['success'];}else{echo$_GET['error'];}?></div>
+    <br>
+    <?php } ?>
+  <p>Send your command to the Minecraft Server. Characters <b>'</b> and <b>"</b> will be removed.</p><br />
   <input type="text" id="command" name="command" maxlength="255" placeholder="Command" class="form-control input-md">
   </div>
 </div>
 
 <div class="form-group">
-  <label class="col-md-4 control-label"></label>
+  <label class="col-md-3 control-label"></label>
   <div class="col-md-4">
-    <button type='submit' class="btn btn-success">Submit !</button>
+    <button type='submit' class="btn btn-success">Submit</button> <a class="btn btn-info" href='./index.php?schedule'>Scheduled Commands</a>
   </div>
 </div>
+<?php  } else {
+require_once("./config.php");
+$con = mysql_connect($dbhost,$dbname,$dbpass);
+if(!$con) {
+  $error = "Couldn't connect to database.";
+  header("Location: ./index.php?error=$error");
+  exit();
+}
+mysql_select_db($dbname) or die("Cannot select defined database. Error:".mysql_error());
 
+$select = mysql_query("SELECT * FROM `MySQLCommands` ORDER BY `id` ASC");
+
+$count = mysql_num_rows($select);
+if($count >= 1) {
+echo "<div class='col-md-3'></div><div class='col-md-6'><table class='table table-bordered'>";
+echo "<tr><td>#</td><td>Command</td><td>Action</td></tr>";
+while($row = mysql_fetch_array($select)) {
+echo "<tr><td>".$row['id']."</td><td>".$row['command']."</td><td><a class='btn btn-danger' href='./execute.php?delete=".$row['id']."' onclick='Conf()'><span class='glyphicon glyphicon-remove'></span></td></tr>";
+}
+echo "</table>";
+
+  ?>
+
+  <script>
+  function Conf() {
+      confirm("Are you sure?");
+  }
+  </script>
+  <div class="col-md-4">
+    <a class="btn btn-info" href='./index.php'>Send Commands</a>
+  </div>
+  <br><br><br>
+  <p>These will be executed, from the top to the bottom, by the Server. <br>Check you MySQLCommands Plugin config.yml file to alter the execution interval.</p>
+</div>
+<?php } else {
+        ?>
+        <br><br>
+        <label class="col-md-3 control-label" ></label>
+        <div class="col-md-6">
+          <center><p>No commands in the schedule.</p><br><br>
+          <a class="btn btn-info" href='./index.php'>Send Commands</a>
+        </center>
+        </div>
+        <?php
+    }
+} ?>
 </fieldset>
 </form>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
+
