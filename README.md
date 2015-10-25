@@ -8,9 +8,9 @@ The Web Interface for the MySQLCommands Bukkit Plugin
 
 ##Plugin Download
 
-*[Mega](https://mega.nz/#!TUR1kQDB!bgu6GbIwukuy1r7J7pb-Nbydnv9zNLU8kFvFa__BJmY)
+* [Mega](https://mega.nz/#!TUR1kQDB!bgu6GbIwukuy1r7J7pb-Nbydnv9zNLU8kFvFa__BJmY)
 
-*[Bukkit](http://dev.bukkit.org/bukkit-plugins/mysqlcommands/)
+* [Bukkit](http://dev.bukkit.org/bukkit-plugins/mysqlcommands/)
 
 ##To-Do List
 * Login system integration
