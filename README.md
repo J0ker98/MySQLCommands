@@ -2,13 +2,13 @@
 The Web Interface for the MySQLCommands Bukkit Plugin
 
 ##Installation Tutorial
-
 1. Open the file "config.php"
 2. Insert your MySQL Database informations.
 3. Upload files on your Web Server.
 
-
-Bukkit Plugin Link: http://dev.bukkit.org/bukkit-plugins/mysqlcommands/
+##Plugin Download
+Mega: https://mega.nz/#!TUR1kQDB!bgu6GbIwukuy1r7J7pb-Nbydnv9zNLU8kFvFa__BJmY
+Bukkit: http://dev.bukkit.org/bukkit-plugins/mysqlcommands/
 
 ##To-Do List
 * Login system integration
