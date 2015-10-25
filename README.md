@@ -7,9 +7,7 @@ The Web Interface for the MySQLCommands Bukkit Plugin
 3. Upload files on your Web Server.
 
 ##Plugin Download
-
 * [Mega](https://mega.nz/#!TUR1kQDB!bgu6GbIwukuy1r7J7pb-Nbydnv9zNLU8kFvFa__BJmY)
-
 * [Bukkit](http://dev.bukkit.org/bukkit-plugins/mysqlcommands/)
 
 ##To-Do List
