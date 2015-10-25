@@ -14,7 +14,7 @@ The Web Interface for the MySQLCommands Bukkit plugin. You can try out a live ve
 * Login system integration
 
 ##Security
-Currently a login system it's not integrated so is hightly suggested because otherwise everyone would be allowed to send commands to your server. If you do not know how to create a login system you can find one here: http://www.php-login.net/
+Currently a login system it's not integrated so it is hightly suggested because otherwise everyone would be allowed to send commands to your server. If you do not know how to create a login system you can find one here: http://www.php-login.net/
 
 The minimal version with some changes is enough to keep your database secure.
 
