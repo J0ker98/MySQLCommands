@@ -1,7 +1,7 @@
 
 <?php
 function MessageHandler($message,$type) {
-  //TYPE: 0 = ERROR, 1 = success
+  //TYPE: 0 = ERROR, 1 = SUCCESS
   if(!$message) {
     die("No message set!");
   }
