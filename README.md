@@ -8,11 +8,13 @@ The Web Interface for the MySQLCommands Bukkit Plugin
 3. Upload files on your Web Server.
 
 
-##Bukkit Plugin Link: http://dev.bukkit.org/bukkit-plugins/mysqlcommands/
+Bukkit Plugin Link: http://dev.bukkit.org/bukkit-plugins/mysqlcommands/
 
+##To-Do List
+* Login system integration
 
 ##Security
-Using a login system is hightly suggested because otherwise everyone would be allowed to send commands to your server. If you do not know how to create a login system you can find one here: http://www.php-login.net/
+Currently a login system it's not integrated so is hightly suggested because otherwise everyone would be allowed to send commands to your server. If you do not know how to create a login system you can find one here: http://www.php-login.net/
 
 The minimal version with some changes is enough to keep your database secure.
 
