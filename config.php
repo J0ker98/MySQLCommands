@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 /*
 This is the Configuration File. Please insert your data here
 */
