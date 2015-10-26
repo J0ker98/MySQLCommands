@@ -51,11 +51,16 @@
 </div>
 <?php  } else {
 require_once("./config.php");
-$con = mysql_connect($dbhost,$dbname,$dbpass);
-if(!$con) {
-  $error = "Couldn't connect to database.";
-  header("Location: ./index.php?error=$error");
-  exit();
+if($debug != 'true') {
+      $con = mysql_connect($dbhost,$dbname,$dbpass);
+
+      if(!$con) {
+        $error = "Couldn't connect to database.";
+        header("Location: ./index.php?error=$error");
+        exit();
+      }
+} else {
+  $con = mysql_connect($dbhost,$dbname,$dbpass) or die("Couldn't connect to database. Error:".mysql_error());
 }
 mysql_select_db($dbname) or die("Cannot select defined database. Error:".mysql_error());
 
