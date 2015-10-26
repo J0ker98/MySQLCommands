@@ -25,12 +25,17 @@ if($debug != 'true') {
   if(!empty($_POST['command'])) {
 require_once("./config.php");
 
+if($debug != 'true') {
       $con = mysql_connect($dbhost,$dbname,$dbpass);
 
       if(!$con) {
         $error = "Couldn't connect to database.";
         MessageHandler($error,0);
       }
+} else {
+  $con = mysql_connect($dbhost,$dbname,$dbpass) or die("Couldn't connect to database. Error:".mysql_error());
+}
+
       mysql_select_db($dbname) or die("Cannot select defined database. Error:".mysql_error());
 
                              $command = $_POST['command'];
