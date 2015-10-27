@@ -18,8 +18,10 @@ curl_close($curl);
 }
 
 if($reply == true) {
-echo "Your MySQLCommands installation is the $version and it's up to date!";
+$success_1 = "Your MySQLCommands installation is the $version and it's up to date!";
+header("Location: ./index.php?success=$success_1");
 } else {
-echo "Your MySQLCommands installation is OUTDATED! You are using the $version version. Check for new updates at <a href='https://github.com/J0ker98/MySQLCommands'>GitHub</a>";
+$fail_1 = "Your MySQLCommands installation is OUTDATED! You are using the $version version. Check for new updates at <a href='https://github.com/J0ker98/MySQLCommands'>GitHub</a>";
+header("Location: ./index.php?error=$fail_1");
 }
 ?>
