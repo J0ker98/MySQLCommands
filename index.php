@@ -23,12 +23,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL Commands &bull; Web UI</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.5/darkly/bootstrap.min.css">
 </head>
 <body>
+<style>body {overflow: hidden;}</style>
 <form method='post' action='./execute.php' class="form-horizontal">
 <fieldset>
-<legend>MySQL Commands Console</legend>
+<h1><center><legend><font size="6">MySQL Commands Console</font></legend></center></h1>
 <?php if(!isset($_GET['schedule'])) { ?>
 <div class="form-group">
   <label class="col-md-3 control-label" for="command"></label>
@@ -38,7 +39,7 @@
     <?php if(isset($_GET['success'])){echo"Success";}else{echo"Error";}?>!</strong> <?php if(isset($_GET['success'])){echo$_GET['success'];}else{echo$_GET['error'];}?></div>
     <br>
     <?php } ?>
-  <p>Send your command to the Minecraft Server. Characters <b>'</b> and <b>"</b> will be removed.</p><br />
+  <center><p>Send your command to the Minecraft Server. Characters <b>'</b> and <b>"</b> will be removed.</p></center><br />
   <input type="text" id="command" name="command" maxlength="255" placeholder="Command" class="form-control input-md">
   </div>
 </div>
@@ -46,31 +47,25 @@
 <div class="form-group">
   <label class="col-md-3 control-label"></label>
   <div class="col-md-4">
-    <button type='submit' class="btn btn-success">Submit</button> <a class="btn btn-info" href='./index.php?schedule'>Scheduled Commands</a>
+    <button type='submit' class="btn btn-success" style="margin-right: 0.115em; margin-left: 0.115em;">Submit</button> <a class="btn btn-info" style="margin-right: 0.115em; margin-left: 0.115em;" href='./index.php?schedule'>Scheduled Commands</a> <a class="btn btn-primary" style="margin-right: 0.115em; margin-left: 0.115em;" href='./update.php'>Check for Updates</a>
   </div>
 </div>
 <?php  } else {
 require_once("./config.php");
-if($debug != 'true') {
-      $con = mysql_connect($dbhost,$dbname,$dbpass);
+      $con = mysqli_connect($dbhost, $dbname, $dbpass, $dbname);
 
-      if(!$con) {
-        $error = "Couldn't connect to database.";
-        header("Location: ./index.php?error=$error");
-        exit();
+      if($con->connect_error) {
+		die("Couldn't connect to database. Error:".$conn->connect_error);
       }
-} else {
-  $con = mysql_connect($dbhost,$dbname,$dbpass) or die("Couldn't connect to database. Error:".mysql_error());
-}
-mysql_select_db($dbname) or die("Cannot select defined database. Error:".mysql_error());
 
-$select = mysql_query("SELECT * FROM `MySQLCommands` ORDER BY `id` ASC");
+$select = 'SELECT * FROM `MySQLCommands` ORDER BY `id` ASC';
+$rs=$con->query($select);
 
-$count = mysql_num_rows($select);
+$count = $rs->num_rows;
 if($count >= 1) {
 echo "<div class='col-md-3'></div><div class='col-md-6'><table class='table table-bordered'>";
 echo "<tr><td>#</td><td>Command</td><td>Action</td></tr>";
-while($row = mysql_fetch_array($select)) {
+while($row = mysqli_fetch_array($rs)) {
 echo "<tr><td>".$row['id']."</td><td>".$row['command']."</td><td><a class='btn btn-danger' href='./execute.php?delete=".$row['id']."' onclick='Conf()'><span class='glyphicon glyphicon-remove'></span></td></tr>";
 }
 echo "</table>";

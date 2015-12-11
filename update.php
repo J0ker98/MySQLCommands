@@ -1,6 +1,6 @@
 <?php
 require_once("config.php");
-
+if ($updatechecking === 'true') {
 $get = file_get_contents("http://minecraftsmp.altervista.org/mysqlcmd/uptodate.php?version=$version");
 $reply = json_decode($get, true);
 if(!$get) {
@@ -23,5 +23,6 @@ header("Location: ./index.php?success=$success_1");
 } else {
 $fail_1 = "Your MySQLCommands installation is OUTDATED! You are using the $version version. Check for new updates at <a href='https://github.com/J0ker98/MySQLCommands'>GitHub</a>";
 header("Location: ./index.php?error=$fail_1");
+}
 }
 ?>

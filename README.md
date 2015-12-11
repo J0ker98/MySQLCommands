@@ -29,4 +29,4 @@ https://twitter.com/stetto98
 ##License
 Released under the MIT License - http://opensource.org/licenses/mit-license.php
 
-Current MySQLCommands version is A_0.1.1
+Current MySQLCommands version is A_0.1
